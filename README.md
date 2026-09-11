@@ -486,7 +486,7 @@ build/                        Build output excluded from Git
 
 ## Citation, software, and data availability
 
-- The current software version is `v0.6.5`. Cite CoportSL using the metadata in [CITATION.cff](CITATION.cff). After a versioned Zenodo archive is created, add its DOI to that file and to the paper's software-availability statement.
+- The current software version is `v0.6.5`. Cite CoportSL using the metadata in [CITATION.cff](CITATION.cff). Version `v0.6.5` is archived at [doi:10.5281/zenodo.22708025](https://doi.org/10.5281/zenodo.22708025); the archive for all versions is available at [doi:10.5281/zenodo.22708024](https://doi.org/10.5281/zenodo.22708024).
 - The repository does not contain the original GRMHD snapshots used for the paper. See [Input data](#input-data) for the data format and input requirements.
 - For reasonable requests concerning the GRMHD data used in the paper, contact Fan Zhou at `202631101012@mail.bnu.edu.cn` to discuss access.
 

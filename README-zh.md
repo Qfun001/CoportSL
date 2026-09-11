@@ -486,7 +486,7 @@ build/                        编译产物，不纳入 Git
 
 ## 引用、软件与数据可用性
 
-- 当前软件版本为 `v0.6.5`。引用 CoportSL 时请使用 [CITATION.cff](CITATION.cff) 中的元数据；建立 Zenodo 版本归档后，应在该文件和论文的软件可用性声明中补充对应 DOI。
+- 当前软件版本为 `v0.6.5`。引用 CoportSL 时请使用 [CITATION.cff](CITATION.cff) 中的元数据。版本 `v0.6.5` 的归档地址为 [doi:10.5281/zenodo.22708025](https://doi.org/10.5281/zenodo.22708025)，全部版本的归档地址为 [doi:10.5281/zenodo.22708024](https://doi.org/10.5281/zenodo.22708024)。
 - 源码仓库不包含论文计算所用的 GRMHD 原始快照；数据格式和输入要求见“输入数据”一节。
 - 对论文所用 GRMHD 数据有合理需求时，请联系 Fan Zhou（`202631101012@mail.bnu.edu.cn`）商议获取方式。
 
