@@ -1,0 +1,1 @@
+"""CoportSL desktop app."""

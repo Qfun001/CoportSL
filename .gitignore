@@ -1,0 +1,74 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Linker files
+*.ilk
+
+# Debugger Files
+*.pdb
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# debug information files
+*.dwo
+
+# Visual Studio and build directories
+.vs/
+build/
+*.user
+*.log
+*.tlog
+*.recipe
+*.iobj
+*.ipdb
+*.idb
+
+# Python caches and generated plots
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+plot/
+
+# Release artifacts and internal Codex work files
+/dist/
+/.codex/
+/.codex-tmp/
+
+# Local verification suites
+/tests/
+/desktop/tests/
+
+# External simulation data and generated radiation results
+/CoportSL-data/
+data/
+result/
+resultII*.csv

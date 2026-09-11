@@ -1,0 +1,48 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - uses: microsoft/setup-msbuild@v2
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements.txt -r requirements-desktop.txt
+      - name: Build command-line applications
+        run: |
+          msbuild CoportSL.vcxproj /t:Rebuild /p:Configuration=Release /p:Platform=x64 /p:CoportSLApp=0 /m
+          if ((.\build\bin\x64\Release\CoportSL.exe --show-app) -ne "grrt") { exit 1 }
+          msbuild CoportSL.vcxproj /t:Rebuild /p:Configuration=Release /p:Platform=x64 /p:CoportSLApp=1 /m
+          if ((.\build\bin\x64\Release\CoportSL.exe --show-app) -ne "flux") { exit 1 }
+          msbuild CoportSL.vcxproj /t:Rebuild /p:Configuration=Release /p:Platform=x64 /p:CoportSLApp=2 /m
+          if ((.\build\bin\x64\Release\CoportSL.exe --show-app) -ne "benchmark") { exit 1 }
+          .\build\bin\x64\Release\CoportSL.exe --check-cpu all_logical
+      - name: Build command-line CMake targets
+        run: |
+          cmake -S . -B build/core-cmake -A x64
+          cmake --build build/core-cmake --config Release --parallel
+      - name: Check Python source
+        run: |
+          python -m compileall -q desktop tools
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Build command-line targets
+        run: |
+          cmake -S . -B build/core-cmake -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/core-cmake --parallel
+      - name: Check Python source
+        run: python -m compileall -q desktop tools

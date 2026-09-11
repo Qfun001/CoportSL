@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use CoportSL in your research, please cite the software using the metadata in this file."
+title: "CoportSL: Polarized Slow-light Radiative Transfer"
+type: software
+authors:
+  - family-names: Zhou
+    given-names: Fan
+    orcid: "https://orcid.org/0009-0001-0796-1547"
+    email: "202631101012@mail.bnu.edu.cn"
+  - family-names: Huang
+    given-names: Jiewei
+    orcid: "https://orcid.org/0009-0002-2360-2971"
+version: 0.6.5
+date-released: 2026-09-11
+repository-code: "https://github.com/Qfun001/CoportSL"
+url: "https://github.com/Qfun001/CoportSL"
+license: AGPL-3.0-only
+keywords:
+  - general relativistic radiative transfer
+  - slow light
+  - polarization
+  - GRMHD
+  - black hole imaging

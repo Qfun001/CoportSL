@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "coportsl/job-v1.json",
+  "title": "CoportSL 作业配置 v1",
+  "type": "object",
+  "$defs": {
+    "numberOrExpression": {
+      "oneOf": [
+        {"type": "number"},
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[0-9eEpi+\\-*/().\\s]+$"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "kind",
+    "paths",
+    "camera",
+    "model",
+    "ray"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "kind": {
+      "enum": [
+        "grrt",
+        "flux",
+        "benchmark"
+      ]
+    },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "data",
+        "grid"
+      ],
+      "properties": {
+        "data": {
+          "type": "string",
+          "minLength": 1
+        },
+        "grid": {
+          "type": "string",
+          "minLength": 1
+        },
+        "output": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cancel_file": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "npix",
+        "fov_rad",
+        "observer_r_rg"
+      ],
+      "properties": {
+        "npix": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "fov_rad": {
+          "$ref": "#/$defs/numberOrExpression",
+          "exclusiveMinimum": 0
+        },
+        "nu_hz": {
+          "$ref": "#/$defs/numberOrExpression",
+          "exclusiveMinimum": 0
+        },
+        "frequencies_hz": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/numberOrExpression",
+            "exclusiveMinimum": 0
+          }
+        },
+        "observer_r_rg": {
+          "$ref": "#/$defs/numberOrExpression",
+          "exclusiveMinimum": 0
+        },
+        "observer_t": {
+          "$ref": "#/$defs/numberOrExpression"
+        },
+        "observer_theta_rad": {
+          "$ref": "#/$defs/numberOrExpression"
+        },
+        "observer_phi_rad": {
+          "$ref": "#/$defs/numberOrExpression"
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric",
+        "fluid_backend",
+        "electron",
+        "mbh_msun",
+        "spin",
+        "mdot_msun_per_year",
+        "mdot_sim"
+      ],
+      "properties": {
+        "metric": {
+          "const": "mksbhac"
+        },
+        "fluid_backend": {
+          "const": "bhac"
+        },
+        "electron": {
+          "enum": [
+            "thermal",
+            "powerlaw",
+            "beam",
+            "losscone"
+          ]
+        },
+        "mbh_msun": {
+          "$ref": "#/$defs/numberOrExpression",
+          "exclusiveMinimum": 0
+        },
+        "spin": {
+          "$ref": "#/$defs/numberOrExpression",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "mdot_msun_per_year": {
+          "$ref": "#/$defs/numberOrExpression",
+          "exclusiveMinimum": 0
+        },
+        "mdot_sim": {
+          "$ref": "#/$defs/numberOrExpression",
+          "exclusiveMinimum": 0
+        },
+        "hs": {"$ref": "#/$defs/numberOrExpression"},
+        "r_low": {"$ref": "#/$defs/numberOrExpression", "minimum": 0},
+        "r_high": {"$ref": "#/$defs/numberOrExpression", "minimum": 0},
+        "beta0": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0},
+        "sigma_max": {"$ref": "#/$defs/numberOrExpression", "minimum": 0},
+        "thetae_emit": {"$ref": "#/$defs/numberOrExpression", "minimum": 0},
+        "ne_emit_cm3": {"$ref": "#/$defs/numberOrExpression", "minimum": 0},
+        "pol_limit": {"$ref": "#/$defs/numberOrExpression", "minimum": 0, "maximum": 1},
+        "p_min": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 2},
+        "p_max": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 2},
+        "gamma_ratio": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 1},
+        "beam_angle_rad": {"$ref": "#/$defs/numberOrExpression", "minimum": 0, "maximum": 3.141592653589793},
+        "beam_width": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0},
+        "r_source_rg": {"$ref": "#/$defs/numberOrExpression", "minimum": 0}
+      }
+    },
+    "ray": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "atol": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0},
+        "rtol": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0},
+        "hmin": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0},
+        "lmax": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0},
+        "h0": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0},
+        "cell_fraction": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0, "maximum": 1},
+        "horizon_factor": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0}
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sample_dt_rg_over_c": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0},
+        "region_tolerances": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "jI": {"$ref": "#/$defs/numberOrExpression"},
+            "jP": {"$ref": "#/$defs/numberOrExpression"},
+            "aI": {"$ref": "#/$defs/numberOrExpression"},
+            "aP": {"$ref": "#/$defs/numberOrExpression"},
+            "rhoV": {"$ref": "#/$defs/numberOrExpression"},
+            "rhoC": {"$ref": "#/$defs/numberOrExpression"}
+          }
+        }
+      }
+    },
+    "grrt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "task": {
+          "enum": [
+            "analysis",
+            "fast",
+            "slow",
+            "region_error"
+          ]
+        },
+        "postprocess": {
+          "type": "boolean"
+        },
+        "frame_start": {
+          "type": "integer",
+          "minimum": -1
+        },
+        "frame_end": {
+          "type": "integer",
+          "minimum": -1
+        }
+      }
+    },
+    "slow": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "partition": {
+          "enum": [
+            "shell",
+            "jet_shell"
+          ]
+        },
+        "region_mode": {
+          "enum": [
+            "suggest",
+            "manual"
+          ]
+        },
+        "window": {
+          "enum": [
+            "p90",
+            "p95",
+            "p99",
+            "p99.9",
+            "full"
+          ]
+        },
+        "manual_set": {
+          "type": "string",
+          "minLength": 1
+        },
+        "region_sets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "keys"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "keys": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "region_error": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "frame_step": {"type": "integer", "minimum": 1}
+      }
+    },
+    "flux": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "frame_start": {"type": "integer", "minimum": 0},
+        "frame_end": {"type": "integer", "minimum": 0},
+        "frame_step": {"type": "integer", "minimum": 1},
+        "target_flux_jy": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0},
+        "distance_pc": {"$ref": "#/$defs/numberOrExpression", "exclusiveMinimum": 0}
+      }
+    },
+    "benchmark": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "frame_start": {"type": "integer", "minimum": 0},
+        "frame_end": {"type": "integer", "minimum": 0},
+        "frame_step": {"type": "integer", "minimum": 1},
+        "npix_list": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 1}},
+        "core_counts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 1}},
+        "repeats": {"type": "integer", "minimum": 1},
+        "warmup_frames": {"type": "integer", "minimum": 0},
+        "run_fast": {"type": "boolean"},
+        "run_slow": {"type": "boolean"},
+        "partition": {
+          "enum": [
+            "shell",
+            "jet_shell"
+          ]
+        },
+        "window": {
+          "enum": [
+            "p90",
+            "p95",
+            "p99",
+            "p99.9",
+            "full"
+          ]
+        },
+        "core_modes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "physical_cores",
+              "performance_cores",
+              "efficiency_cores"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
